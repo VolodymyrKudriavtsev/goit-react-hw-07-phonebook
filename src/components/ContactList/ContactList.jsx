@@ -11,11 +11,11 @@ const ContactList = () => {
 
   const dispatch = useDispatch();
 
-  const elements = filteredContacts.map(({ id, name, number }) => (
+  const elements = filteredContacts.map(({ id, name, phone }) => (
     <ContactItem
       key={id}
       name={name}
-      number={number}
+      phone={phone}
       handleDeleteContact={() => dispatch(deleteContact(id))}
     />
   ));
