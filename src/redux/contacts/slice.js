@@ -1,6 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import shortid from 'shortid';
 
+const initialState = {
+  items: [],
+  isLoading: false,
+  error: null,
+};
+
 const contactsSlice = createSlice({
   name: 'contacts',
   initialState: [],
