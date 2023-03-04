@@ -11,41 +11,42 @@ const initialState = {
 const contactsSlice = createSlice({
   name: 'contacts',
   initialState,
-  extraReducers: {
-    [actions.fetchContactsRequest]: store => {
-      store.loading = true;
-    },
-    [actions.fetchContactsSuccess]: (store, { payload }) => {
-      store.loading = false;
-      store.items = payload;
-    },
-    [actions.fetchContactsError]: (store, { payload }) => {
-      store.loading = false;
-      store.error = payload;
-    },
-    [actions.fetchAddContactRequest]: store => {
-      store.loading = true;
-    },
-    [actions.fetchAddContactSuccess]: (store, { payload }) => {
-      store.loading = false;
-      store.items.push(payload);
-    },
-    [actions.fetchAddContactError]: (store, { payload }) => {
-      store.loading = false;
-      store.error = payload;
-    },
-    [actions.fetchDeleteContactRequest]: store => {
-      store.loading = true;
-    },
-    [actions.fetchDeleteContactSuccess]: (store, { payload }) => {
-      store.loading = false;
-      const index = store.items.findIndex(item => item.id === payload);
-      store.items.splice(index, 1);
-    },
-    [actions.fetchDeleteContactError]: (store, { payload }) => {
-      store.loading = false;
-      store.error = payload;
-    },
+  extraReducers: builder => {
+    builder
+      .addCase(actions.fetchContactsRequest, store => {
+        store.isLoading = true;
+      })
+      .addCase(actions.fetchContactsSuccess, (store, { payload }) => {
+        store.isLoading = false;
+        store.items = payload;
+      })
+      .addCase(actions.fetchContactsError, (store, { payload }) => {
+        store.isLoading = false;
+        store.error = payload;
+      })
+      .addCase(actions.fetchAddContactRequest, store => {
+        store.isLoading = true;
+      })
+      .addCase(actions.fetchAddContactSuccess, (store, { payload }) => {
+        store.isLoading = false;
+        store.items.push(payload);
+      })
+      .addCase(actions.fetchAddContactError, (store, { payload }) => {
+        store.isLoading = false;
+        store.error = payload;
+      })
+      .addCase(actions.fetchDeleteContactRequest, store => {
+        store.isLoading = true;
+      })
+      .addCase(actions.fetchDeleteContactSuccess, (store, { payload }) => {
+        store.isLoading = false;
+        const index = store.items.findIndex(item => item.id === payload);
+        store.items.splice(index, 1);
+      })
+      .addCase(actions.fetchDeleteContactError, (store, { payload }) => {
+        store.isLoading = false;
+        store.error = payload;
+      });
   },
 });
 
