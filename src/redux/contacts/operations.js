@@ -1,3 +1,9 @@
 import * as api from '../../services/contacts-api';
 
-const fetchContacts = () => {};
+import * as actions from './actions';
+
+export const fetchContacts = () => {
+  const func = async dispatch => {};
+
+  return func;
+};
