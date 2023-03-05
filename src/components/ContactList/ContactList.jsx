@@ -3,7 +3,10 @@ import { useEffect } from 'react';
 
 import ContactItem from 'components/ContactItem';
 
-import { fetchContacts, fetchDeleteContact } from 'redux/contacts/operations';
+import {
+  fetchAllContacts,
+  fetchDeleteContact,
+} from 'redux/contacts/operations';
 import { selectFilteredContacts } from 'redux/contacts/slice';
 
 import { Contacts } from './ContactList.styled';
@@ -12,7 +15,7 @@ const ContactList = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(fetchAllContacts());
   }, [dispatch]);
 
   const filteredContacts = useSelector(selectFilteredContacts);

@@ -1,51 +1,39 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
+
 import * as api from '../../services/contacts-api';
 
-import * as actions from './actions';
-
-export const fetchContacts = () => {
-  const func = async dispatch => {
+export const fetchAllContacts = createAsyncThunk(
+  'contacts/fetch-all',
+  async (_, { rejectWithValue }) => {
     try {
-      dispatch(actions.fetchContactsRequest());
-      const data = await api.getContacts();
-      dispatch(actions.fetchContactsSuccess(data));
+      const data = await api.getAllContacts();
+      return data;
     } catch ({ response }) {
-      dispatch(actions.fetchContactsError(response.data.message));
+      return rejectWithValue(response.data.message);
     }
-  };
+  }
+);
 
-  return func;
-};
-
-export const fetchAddContact = data => {
-  const func = async (dispatch, getState) => {
+export const fetchAddContact = createAsyncThunk(
+  'contacts/add',
+  async (data, { rejectWithValue }) => {
     try {
-      // const { contacts } = getState();
-      // for (const contact of contacts.items) {
-      //   if (data.name.toLowerCase() === contact.name.toLowerCase())
-      //     return alert(`${data.name} is already in contacts.`);
-      // }
-
-      dispatch(actions.fetchAddContactRequest());
       const result = await api.addContact(data);
-      dispatch(actions.fetchAddContactSuccess(result));
+      return result;
     } catch ({ response }) {
-      dispatch(actions.fetchAddContactError(response.data.message));
+      return rejectWithValue(response.data.message);
     }
-  };
+  }
+);
 
-  return func;
-};
-
-export const fetchDeleteContact = id => {
-  const func = async dispatch => {
+export const fetchDeleteContact = createAsyncThunk(
+  'contacts/delete',
+  async (id, { rejectWithValue }) => {
     try {
-      dispatch(actions.fetchDeleteContactRequest());
       await api.deleteContact(id);
-      dispatch(actions.fetchDeleteContactSuccess(id));
+      return id;
     } catch ({ response }) {
-      dispatch(actions.fetchDeleteContactError(response.data.message));
+      return rejectWithValue(response.data.message);
     }
-  };
-
-  return func;
-};
+  }
+);
